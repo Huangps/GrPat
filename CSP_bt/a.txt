@@ -1,0 +1,32 @@
+=======================================================
+Assertion: SBT() |= ( G ( Con5_s->((! Act4_s U Con5_f)|| G ! Act4_s)))&&( G ( Con5_f->((! Act3_s U Con5_s)|| G ! Act3_s)))
+********Verification Result********
+The Assertion (SBT() |= ( G ( Con5_s->((! Act4_s U Con5_f)|| G ! Act4_s)))&&( G ( Con5_f->((! Act3_s U Con5_s)|| G ! Act3_s)))) is VALID.
+
+********Verification Setting********
+Admissible Behavior: All
+Search Engine: Strongly Connected Component Based Search
+
+
+********Verification Statistics********
+
+Visited States:19
+Total Transitions:34
+Time Used:0.0262626s
+Memory Used:42336.92KB
+=======================================================
+Assertion: EBT() |= ( G ( Con5_s->((! Act4_s U Con5_f)|| G ! Act4_s)))&&( G ( Con5_f->((! Act3_s U Con5_s)|| G ! Act3_s)))
+********Verification Result********
+The Assertion (EBT() |= ( G ( Con5_s->((! Act4_s U Con5_f)|| G ! Act4_s)))&&( G ( Con5_f->((! Act3_s U Con5_s)|| G ! Act3_s)))) is VALID.
+
+********Verification Setting********
+Admissible Behavior: All
+Search Engine: Strongly Connected Component Based Search
+
+
+********Verification Statistics********
+
+Visited States:25
+Total Transitions:35
+Time Used:0.0056351s
+Memory Used:42189.424KB

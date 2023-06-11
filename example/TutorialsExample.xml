@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<root _reach_goal="" env="True" expected_execution_time="12" global_vars="var c_p=0; var r_p=0;&#10;#define t1 10;&#10;#define t2 5;" main_tree_to_execute="BehaviorTree" specification="#assert BehaviorTree |= G( AtA_f -&gt; F (GoToA_s || GoToA_f || GoToA_r))&#10;#define goal c_p==1;&#10;#assert DeadlineProcess  reaches goal;">
+    <!-- ////////// -->
+    <BehaviorTree ID="BehaviorTree">
+        <Fallback>
+            <Condition ID="Picked" failure_guard="c_p==0" success_guard="c_p==1"/>
+            <Sequence>
+                <Fallback>
+                    <Condition ID="AtA" failure_guard="r_p==0" success_guard="r_p==1"/>
+                    <Action ID="GoToA" excutionTime="t1" success_program="r_p=1"/>
+                </Fallback>
+                <Action ID="PickUP" excutionTime="t2" success_program="c_p=1"/>
+            </Sequence>
+        </Fallback>
+    </BehaviorTree>
+    <!-- ////////// -->
+    <TreeNodesModel>
+        <Condition ID="AtA">
+            <inout_port name="failure_guard"/>
+            <inout_port name="success_guard"/>
+        </Condition>
+        <Action ID="GoToA">
+            <inout_port name="excutionTime"/>
+            <inout_port name="success_program"/>
+        </Action>
+        <Action ID="PickUP">
+            <inout_port name="excutionTime"/>
+            <inout_port name="success_program"/>
+        </Action>
+        <Condition ID="Picked">
+            <inout_port name="failure_guard"/>
+            <inout_port name="success_guard"/>
+        </Condition>
+    </TreeNodesModel>
+    <!-- ////////// -->
+</root>

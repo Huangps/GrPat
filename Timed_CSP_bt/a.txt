@@ -1,0 +1,36 @@
+=======================================================
+Assertion: DeadlineProcess() reaches goal1
+********Verification Result********
+The Assertion (DeadlineProcess() reaches goal1) is VALID.
+The following trace leads to a state where the condition is satisfied.
+<init -> Ask_s -> Answer_r -> Monitoring_r -> BatteryLevelAbove10_s -> BatteryNotRecharging_f -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> [Wait[0]] -> τ -> Recharge_r -> Ask_s -> Answer_r -> Monitoring_r -> BatteryLevelAbove10_s -> BatteryNotRecharging_f -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> [Wait[0]] -> τ -> Recharge_r -> Ask_s -> Answer_r -> Monitoring_r -> BatteryLevelAbove10_s -> BatteryNotRecharging_f -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> [Wait[0]] -> τ -> Recharge_r -> Ask_s -> Answer_r -> Monitoring_r -> BatteryLevelAbove10_s -> BatteryNotRecharging_f -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> [Wait[0]] -> τ -> Recharge_r -> Ask_s -> Answer_r -> Monitoring_r -> BatteryLevelAbove10_s -> BatteryNotRecharging_f -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> [Wait[0]] -> τ -> Recharge_r -> Ask_s -> Answer_r -> Monitoring_r -> BatteryLevelAbove10_s -> BatteryNotRecharging_f -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> [Wait[0]] -> τ -> Recharge_r -> Ask_s -> Answer_r -> Monitoring_r -> BatteryLevelAbove10_s -> BatteryNotRecharging_f -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> [Wait[0]] -> τ -> Recharge_r -> Ask_s -> Answer_r -> Monitoring_r -> BatteryLevelAbove10_s -> BatteryNotRecharging_f -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> [Wait[0]] -> τ -> Recharge_r -> Ask_s -> Answer_r -> Monitoring_r -> BatteryLevelAbove10_s -> BatteryNotRecharging_f -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> [Wait[0]] -> τ -> Recharge_r -> Ask_s -> Answer_r -> Monitoring_r -> BatteryLevelAbove10_s -> BatteryNotRecharging_f -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> [Wait[0]] -> τ -> Recharge_r -> Ask_s -> Answer_r -> Monitoring_r -> BatteryLevelAbove10_s -> BatteryNotRecharging_f -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> [Wait[0]] -> τ -> Recharge_r -> Ask_s -> Answer_r -> Monitoring_r -> BatteryLevelAbove10_s -> BatteryNotRecharging_f -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> [Wait[0]] -> τ -> Recharge_r -> Ask_s -> Answer_r -> Monitoring_r -> BatteryLevelAbove10_s -> BatteryNotRecharging_f -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> [Wait[0]] -> τ -> Recharge_r -> Ask_s -> Answer_r -> Monitoring_r -> BatteryLevelAbove10_s -> BatteryNotRecharging_f -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> [Wait[0]] -> τ -> Recharge_r -> Ask_s -> Answer_r -> Monitoring_r -> BatteryLevelAbove10_s -> BatteryNotRecharging_f -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> [Wait[0]] -> τ -> Recharge_r -> Ask_s -> Answer_r -> Monitoring_r -> BatteryLevelAbove10_s -> BatteryNotRecharging_f -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> [Wait[0]] -> τ -> Recharge_r -> Ask_s -> Answer_r -> Monitoring_r -> BatteryLevelAbove10_s -> BatteryNotRecharging_f -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> [Wait[0]] -> τ -> Recharge_r -> Ask_s -> Answer_r -> Monitoring_r -> BatteryLevelAbove10_s -> BatteryNotRecharging_f -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> [Wait[0]] -> τ -> Recharge_r -> Ask_s -> Answer_r -> Monitoring_r -> BatteryLevelAbove10_s -> BatteryNotRecharging_f -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> [Wait[0]] -> τ -> Recharge_r -> Ask_s -> Answer_r -> Monitoring_r -> BatteryLevelAbove10_s -> BatteryNotRecharging_f -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> tock -> [Wait[0]] -> τ -> Recharge_r>
+
+********Verification Setting********
+Admissible Behavior: All
+Search Engine: First Witness Trace with Zone Abstraction
+System Abstraction: False
+
+
+********Verification Statistics********
+
+Visited States:441
+Total Transitions:440
+Time Used:1.0346914s
+Memory Used:53880.496KB
+=======================================================
+Assertion: DeadlineProcess() reaches goal2
+********Verification Result********
+The Assertion (DeadlineProcess() reaches goal2) is NOT valid.
+
+********Verification Setting********
+Admissible Behavior: All
+Search Engine: First Witness Trace with Zone Abstraction
+System Abstraction: False
+
+
+********Verification Statistics********
+
+Visited States:154685
+Total Transitions:436443
+Time Used:4.7525372s
+Memory Used:18063.736KB

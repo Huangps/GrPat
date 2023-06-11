@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<root env="True" expected_execution_time="300" global_vars="var b=20;&#10;var c=0;&#10;var a=1;&#10;#define  t 10;&#10;#define  goal1  b ==40 ;&#10;#define  goal2  b ==60 ;" main_tree_to_execute="BehaviorTree" specification="#assert DeadlineProcess  reaches goal1;&#10;#assert DeadlineProcess  reaches goal2;">
+    <!-- ////////// -->
+    <BehaviorTree ID="BehaviorTree">
+        <Parallel name="Pa">
+            <Fallback name="F">
+                <Sequence name="S1">
+                    <Condition ID="BatteryLevelAbove10" failure_guard="b&lt;=10" name="C1" success_guard="b&gt;10"/>
+                    <Condition ID="BatteryNotRecharging" failure_guard="c==0" name="C2" success_guard=" c==1"/>
+                </Sequence>
+                <Action ID="Recharge" excutionTime="t" name="A1" running_program="b=b+1" success_guard="b==100" success_program="c=1"/>
+            </Fallback>
+            <Action ID="Monitoring" name="A3" success_program="a=1"/>
+            <Sequence name="S2">
+                <Condition ID="Ask" failure_guard="a==0" name="C3" success_guard="a==1"/>
+                <Action ID="Answer" name="A2" success_program="a=0;b=b-1"/>
+            </Sequence>
+        </Parallel>
+    </BehaviorTree>
+    <!-- ////////// -->
+    <TreeNodesModel>
+        <Action ID="Answer">
+            <inout_port name="success_program"/>
+        </Action>
+        <Condition ID="Ask">
+            <inout_port name="failure_guard"/>
+            <inout_port name="success_guard"/>
+        </Condition>
+        <Condition ID="BatteryLevelAbove10">
+            <inout_port name="failure_guard"/>
+            <inout_port name="success_guard"/>
+        </Condition>
+        <Condition ID="BatteryNotRecharging">
+            <inout_port name="failure_guard"/>
+            <inout_port name="success_guard"/>
+        </Condition>
+        <Action ID="DoTask">
+            <inout_port name="excutionTime"/>
+            <inout_port name="failure_program"/>
+            <inout_port name="running_program"/>
+            <inout_port name="success_program"/>
+        </Action>
+        <Action ID="Monitoring">
+            <inout_port name="success_program"/>
+        </Action>
+        <Action ID="Recharge">
+            <inout_port name="excutionTime"/>
+            <inout_port name="running_program"/>
+            <inout_port name="success_guard"/>
+            <inout_port name="success_program"/>
+        </Action>
+    </TreeNodesModel>
+    <!-- ////////// -->
+</root>

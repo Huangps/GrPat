@@ -1,0 +1,23 @@
+var b=20;
+var c=0;
+var a=1;
+#define  t 10;
+#define  goal1  b ==40 ;
+#define  goal2  b ==60 ;
+BatteryLevelAbove10 = [b>10]BatteryLevelAbove10_s->Success [] [b<=10]BatteryLevelAbove10_f->Fail;
+
+BatteryNotRecharging = [ c==1]BatteryNotRecharging_s->Success [] [c==0]BatteryNotRecharging_f->Fail;
+
+Recharge = Wait[t];([b==100]Recharge_s{c=1}->Success [] Recharge_f->Fail [] Recharge_r{b=b+1}->Running);
+
+Monitoring = Monitoring_s{a=1}->Success [] Monitoring_f->Fail [] Monitoring_r->Running;
+
+Ask = [a==1]Ask_s->Success [] [a==0]Ask_f->Fail;
+
+Answer = Answer_s{a=0;b=b-1}->Success [] Answer_f->Fail [] Answer_r->Running;
+
+BehaviorTree= Loop(((BatteryLevelAbove10;BatteryNotRecharging)|>Recharge)||Monitoring||(Ask;Answer)); //     MainBT
+
+DeadlineProcess = BehaviorTree deadline[300];
+#assert DeadlineProcess  reaches goal1;
+#assert DeadlineProcess  reaches goal2;

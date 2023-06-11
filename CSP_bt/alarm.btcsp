@@ -1,0 +1,56 @@
+﻿//# --------------------------------------------------------------------
+//# description: periodically do taskA (if Alarm) or do taskB (if no alarm)
+//# --------------------------------------------------------------------
+//# expected BT: ( ? ( -> Con5 ( ? Con3 ( -> ( ? Con1 Act1 ) Act3 ) ) )
+//#                  ( ? Con4 ( -> ( ? Con2 Act2 ) Act4 ) )
+//#              )
+//# synthesized BT: ( ? ( -> ( -> Act2 ( -> Con5 Act1 ) ) Act3 ) Act4 )
+//# --------------------------------------------------------------------
+
+//actionMap = {'Act1': 'GotoA',
+//             'Act2': 'GotoB',
+//             'Act3': 'DoTaskA',
+//             'Act4': 'DoTaskB'}
+//conditionMap = {'Con1': 'AtA',
+//                'Con2': 'AtB',
+//                'Con3': 'TaskFinishedA',
+//                'Con4': 'TaskFinishedB',
+//                'Con5': 'Alarm'}
+
+//semanticsRules = {'Act1': [[[], ['Con1', '!Con2']]],
+//                  'Act2': [[[], ['!Con1', 'Con2']]],
+//                  'Act3': [[['Con1', '!Con3', 'Con5'], ['Con3']]]
+//                  'Act4': [[['Con2', '!Con4', '!Con5'], ['Con4']]]
+//                 }                
+var c1=0;
+var c2=0;
+var c3=0;
+var c4=0;
+var c5=0;
+#define N 2;
+var i2=0;
+var i1=0;
+var i3=0;
+var i4=0;
+
+SBT =Loop.(  (Act2_s{c2=1;c1=0}->Success[] Act2_r{c2=0;c1=0}->Running) ; 
+			 ([c5==1]Con5_s->Success[] [c5==0]Con5_f->Fail) ;
+			 (Act1_s{c1=1;c2=0}->Success[]  Act1_r{c1=0;c2=0}->Running) ;
+			 ([c1==1&&c5==1&&c3==0]Act3_s{c3=1}->Success[] Act3_f{c3=0}->Fail[] [c1==1&&c5==1]Act3_r{c3=0}->Running) |>
+			 ([c2==1&&c5==0&&c4==0]Act4_s{c4=1}->Success[] [c2==1&&c5==0&&c4==0]Act4_f{c4=0}->Fail[] [c2==1&&c5==0&&c4==0]Act4_r{c4=0}->Running) );
+
+EBT1=   ([c5==1]Con5_s->Success[] [c5==0]Con5_f->Fail);(([c3==1]Con3_s->Success[] [c3==0]Con3_f->Fail)|>
+		( ([c1==1]Con1_s->Success[] [c1==0]Con1_f->Fail)|>(Act1_s{c1=1;c2=0}->Success[] Act1_r{c1=0;c2=0}->Running);
+		([c1==1&&c5==1&&c3==0]Act3_s{c3=1}->Success[] [c1==0||c5==0&&c3==1]Act3_f{c3=0}->Fail[] [c1==1&&c5==1]Act3_r{c3=0}->Running)) );
+
+EBT2=  ([c4==1]Con4_s->Success[] [c4==0]Con4_f->Fail) |> (([c2==1]Con2_s->Success[] [c2==0]Con2_f->Fail)|>
+(Act2_s{c2=1;c1=0}->Success[] Act2_r{c2=0;c1=0}->Running);([c2==1&&c5==0&&c4==0]Act4_s{c4=1}->Success[][c2==0||c5==1||c4==1]Act4_f{c4=0}->Fail[] [c2==1&&c5==0&&c4==0]Act4_r{c4=0}->Running));
+
+EBT = Loop.(EBT1|>EBT2);
+
+#assert SBT |= ( G (Con5_s -> ((!Act4_s U Con5_f) || G !Act4_s)))&& ( G (Con5_f -> ((!Act3_s U Con5_s) || G !Act3_s))); //alarm时不能做任务B，非alarm时不能做任务A
+#assert EBT |= ( G (Con5_s -> ((!Act4_s U Con5_f) || G !Act4_s)))&& ( G (Con5_f -> ((!Act3_s U Con5_s) || G !Act3_s))); //alarm时不能做任务B，非alarm时不能做任务A
+
+SBT2 =Loop.( ([i2<=N]Act2_s{c2=1;c1=0;i2=0}->Success[] [i2<N]Act2_f{c2=0;c1=0;i2++}->Fail[] [i2<N]Act2_r{c2=0;c1=0;i2++}->Running) ;  ([c5==1]Con5_s->Success[] [c5==0]Con5_f->Fail) ;
+ ([i1<=N]Act1_s{c1=1;c2=0;i1=0}->Success[] [i1==0]Act1_f{c1=0;c2=0}->Fail[] [i1<N]Act1_r{c1=0;c2=0;i1++}->Running) ; ([c1==1&&c5==1&&c3==0&&i3<=N]Act3_s{c3=1;i3=0}->Success[] [i3<N]Act3_f{c3=0;i3++}->Fail[] [c1==1&&c5==1&&i3<N]Act3_r{c3=0;i3++}->Running) 
+ |> ([c2==1&&c5==0&&c4==0&&i4<=N]Act4_s{c4=1;i4=0}->Success[] [i4<N]Act4_f{c4=0;i4++}->Fail[] [c2==1&&c5==0&&c4==0&&i4<N]Act4_r{c4=0;i4++}->Running) );

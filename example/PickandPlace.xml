@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<root _reach_goal="" env="True" expected_execution_time="" global_vars="var c_p=0;&#10;var r_p=0;&#10;" main_tree_to_execute="BehaviorTree" specification="#assert  BehaviorTree |= G (  (PickUp_s ) -&gt;  (!Place_s   U PickUp_s )) ;">
+    <!-- ////////// -->
+    <BehaviorTree ID="BehaviorTree">
+        <Sequence name="S3">
+            <Fallback name="F1">
+                <Condition ID="Picked" failure_guard="  c_p==0 || c_p==2 " name="C1" success_guard="c_p==1"/>
+                <Sequence name="S1">
+                    <Fallback name="F2">
+                        <Condition ID="AtA" failure_guard=" r_p==0||r_p==2 " name="C2" success_guard="r_p==1"/>
+                        <Action ID="GoToA" name="A1" success_program="r_p=1"/>
+                    </Fallback>
+                    <Action ID="PickUp" name="A2" success_program="c_p=1"/>
+                </Sequence>
+            </Fallback>
+            <Fallback name="F3">
+                <Condition ID="Placed" failure_guard="  c_p==0 || c_p== 1 " name="C3" success_guard="c_p==2"/>
+                <Sequence name="S2">
+                    <Fallback name="F4">
+                        <Condition ID="AtB" failure_guard="  r_p==0||r_p==1 " name="C4" success_guard="r_p==2"/>
+                        <Action ID="GotoB" name="A3" success_program="r_p =2"/>
+                    </Fallback>
+                    <Action ID="Place" name="A4" success_program="c_p=2"/>
+                </Sequence>
+            </Fallback>
+        </Sequence>
+    </BehaviorTree>
+    <!-- ////////// -->
+    <TreeNodesModel>
+        <Condition ID="AtA">
+            <inout_port name="failure_guard"/>
+            <inout_port name="success_guard"/>
+        </Condition>
+        <Condition ID="AtB">
+            <inout_port name="failure_guard"/>
+            <inout_port name="success_guard"/>
+        </Condition>
+        <Action ID="GoToA">
+            <inout_port name="success_program"/>
+        </Action>
+        <Action ID="GotoB">
+            <inout_port name="success_program"/>
+        </Action>
+        <Action ID="PickUp">
+            <inout_port name="success_program"/>
+        </Action>
+        <Condition ID="Picked">
+            <inout_port name="failure_guard"/>
+            <inout_port name="success_guard"/>
+        </Condition>
+        <Action ID="Place">
+            <inout_port name="success_program"/>
+        </Action>
+        <Condition ID="Placed">
+            <inout_port name="failure_guard"/>
+            <inout_port name="success_guard"/>
+        </Condition>
+    </TreeNodesModel>
+    <!-- ////////// -->
+</root>

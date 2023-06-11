@@ -1,0 +1,18 @@
+var c_p=0; var r_p=0;
+#define t1 10;
+#define t2 5;
+
+Picked = [c_p==1]Picked_s->Success [] [c_p==0]Picked_f->Fail;
+
+AtA = [r_p==1]AtA_s->Success [] [r_p==0]AtA_f->Fail;
+
+GoToA = Wait[t1];(GoToA_s{r_p=1}->Success [] GoToA_f->Fail [] GoToA_r->Running);
+
+PickUP = Wait[t2];(PickUP_s{c_p=1}->Success [] PickUP_f->Fail [] PickUP_r->Running);
+
+BehaviorTree= Loop(Picked|>((AtA|>GoToA);PickUP)); //     MainBT
+
+DeadlineProcess = BehaviorTree deadline[12];
+#assert BehaviorTree |= G( AtA_f -> F (GoToA_s || GoToA_f || GoToA_r))
+#define goal c_p==1;
+#assert DeadlineProcess  reaches goal;
